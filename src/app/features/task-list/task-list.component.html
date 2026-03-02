@@ -1,0 +1,58 @@
+<div class="task-list-container">
+  <h1>Gerenciador de Tarefas</h1>
+
+  <!-- Formulário -->
+   <app-task-form (addTask)="addTask($event)"></app-task-form>
+
+   <!-- Loading -->
+    <div class="loading-spinner" *ngIf="loading">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
+    <!-- Contadores -->
+     <div class="task-stats" *ngIf="!loading">
+      <mat-chip-listbox>
+        <mat-chip-option [selected]="currentFilter === 'all'" (click)="setFilter('all')">
+          Todas {{ tasks.length }}
+        </mat-chip-option>
+        <mat-chip-option [selected]="currentFilter === 'pending'" (click)="setFilter('pending')" color="accent">
+          Pendentes {{ getPendingCount() }}
+        </mat-chip-option>
+        <mat-chip-option [selected]="currentFilter === 'completed'" (click)="setFilter('completed')" color="primary">
+          Concluídas {{ getCompletedCount() }}
+        </mat-chip-option>
+      </mat-chip-listbox>
+     </div>
+
+     <!-- Lista de Tarefas -->
+      <div class="tasks-grid" *ngIf="!loading">
+        <mat-card *ngFor="let task of filteredTasks" class="task-card" [ngClass]="{'completed': task.completed}">
+          <mat-card-header>
+            <mat-card-title>{{ task.title }}</mat-card-title>
+            <mat-card-subtitle>
+              Criada em: {{ task.createdAt | date:'dd/MM/yyyy HH:mm' }}
+            </mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p>{{ task.description }}</p>
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+            <button mat-icon-button color="accent" (click)="toggleTask(task)"
+              matTooltip="Marcar como {{ task.completed ? 'pendente' : 'concluída' }}">
+              <mat-icon>{{ task.completed ? 'undo' : 'check_circle' }}</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteTask(task.id)" matTooltip="Excluir tarefa">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+
+        <!-- Mensagem quando não há tarefas -->
+         <div class="empty-state" *ngIf="filteredTasks.length === 0">
+          <mat-icon>inbox</mat-icon>
+          <p>Nenhuma tarefa encontrada</p>
+         </div>
+      </div>
+</div>

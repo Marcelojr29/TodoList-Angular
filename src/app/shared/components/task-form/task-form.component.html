@@ -1,0 +1,29 @@
+<div class="task-form-container">
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{title}}</mat-label>
+      <input matInput formControlName="title" placeholder="Digite o título">
+      <mat-error *ngIf="taskForm.get('title')?.hasError('required')">
+        {{titleRequired}}
+      </mat-error>
+      <mat-error *ngIf="taskForm.get('title')?.hasError('minlength')">
+        {{titleMinLength}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{description}}</mat-label>
+      <textarea matInput formControlName="description" placeholder="Digite a descrição" rows="3"></textarea>
+      <mat-error *ngIf="taskForm.get('description')?.hasError('required')">
+        {{descriptionRequired}}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">
+        <mat-icon>add</mat-icon>
+        {{submitButton}}
+      </button>
+    </div>
+  </form>
+</div>

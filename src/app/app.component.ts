@@ -2,9 +2,19 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: `
+    <mat-toolbar color="primary">
+      <span>TodoList Solutions</span>
+    </mat-toolbar>
+    <main>
+      <app-task-list></app-task-list>
+    </main>
+  `,
+  styles: [`
+    main {
+      min-height: calc(100vh - 64px);
+      background: #fafafa;
+    }
+  `]
 })
-export class AppComponent {
-  title = 'todolist-solutions';
-}
+export class AppComponent {}

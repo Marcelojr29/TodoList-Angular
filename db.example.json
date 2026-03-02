@@ -1,0 +1,11 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Exemplo de Tarefa",
+      "description": "Esta é uma tarefa de exemplo para demonstração",
+      "completed": false,
+      "createdAt": "2026-03-02T12:00:00.000Z"
+    }
+  ]
+}
